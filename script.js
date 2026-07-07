@@ -370,16 +370,33 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = true;
 
       try {
-        const response = await fetch('/', {
+        const formData = new FormData(form);
+        const payload = {
+          name:              formData.get('name'),
+          email:             formData.get('email'),
+          phone:             formData.get('phone'),
+          'Total Debt Amount': formData.get('debtAmount'),
+          message:           formData.get('message') || '(no message provided)',
+          _subject:          'New Debt Help Enquiry - MakeMeDebtFree',
+          _template:         'table',
+          _captcha:          'false'
+        };
+
+        const response = await fetch('https://formsubmit.co/ajax/advisor@makemedebtfree.co.uk', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(new FormData(form)).toString()
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept':       'application/json'
+          },
+          body: JSON.stringify(payload)
         });
+
+        const result = await response.json();
 
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
 
-        if (response.ok) {
+        if (result.success) {
           submitBtn.style.display = 'none';
           formSuccess.classList.add('show');
           form.reset();
@@ -388,11 +405,139 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.style.display = '';
           }, 6000);
         } else {
-          throw new Error('Network response not ok');
+          throw new Error('Submission failed');
         }
       } catch (err) {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
+        alert('Something went wrong. Please email us directly at advisor@makemedebtfree.co.uk');
+      }
+    });
+  }
+
+  /* ==========================================
+     POPUP FORM (shows after 5 seconds)
+     ========================================== */
+  const popupOverlay   = document.getElementById('popupOverlay');
+  const popupClose     = document.getElementById('popupClose');
+  const popupForm      = document.getElementById('popupForm');
+  const popupSubmitBtn = document.getElementById('popupSubmitBtn');
+  const popupSuccess   = document.getElementById('popupSuccess');
+
+  function openPopup() {
+    if (sessionStorage.getItem('popupShown')) return;
+    popupOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    popupOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('popupShown', '1');
+  }
+
+  setTimeout(openPopup, 5000);
+
+  if (popupClose) popupClose.addEventListener('click', closePopup);
+
+  popupOverlay.addEventListener('click', e => {
+    if (e.target === popupOverlay) closePopup();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closePopup();
+  });
+
+  function popupSetError(inputId, errorId, msg) {
+    const input = document.getElementById(inputId);
+    const error = document.getElementById(errorId);
+    if (msg) {
+      input && input.classList.add('popup-input-error');
+      if (error) error.textContent = msg;
+    } else {
+      input && input.classList.remove('popup-input-error');
+      if (error) error.textContent = '';
+    }
+  }
+
+  function validatePopupForm() {
+    let valid = true;
+    const name    = document.getElementById('popupName').value.trim();
+    const phone   = document.getElementById('popupPhone').value.trim();
+    const email   = document.getElementById('popupEmail').value.trim();
+    const consent = document.getElementById('popupConsent').checked;
+
+    if (!name || name.length < 2) {
+      popupSetError('popupName', 'popupNameError', 'Please enter your full name.');
+      valid = false;
+    } else {
+      popupSetError('popupName', 'popupNameError', '');
+    }
+
+    if (!phone || !validatePhone(phone)) {
+      popupSetError('popupPhone', 'popupPhoneError', 'Please enter a valid mobile number.');
+      valid = false;
+    } else {
+      popupSetError('popupPhone', 'popupPhoneError', '');
+    }
+
+    if (!email || !validateEmail(email)) {
+      popupSetError('popupEmail', 'popupEmailError', 'Please enter a valid email address.');
+      valid = false;
+    } else {
+      popupSetError('popupEmail', 'popupEmailError', '');
+    }
+
+    if (!consent) {
+      document.getElementById('popupConsentError').textContent = 'You must agree to be contacted.';
+      valid = false;
+    } else {
+      document.getElementById('popupConsentError').textContent = '';
+    }
+
+    return valid;
+  }
+
+  if (popupForm) {
+    popupForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!validatePopupForm()) return;
+
+      popupSubmitBtn.classList.add('loading');
+      popupSubmitBtn.disabled = true;
+
+      try {
+        const payload = {
+          name:     document.getElementById('popupName').value.trim(),
+          phone:    document.getElementById('popupPhone').value.trim(),
+          email:    document.getElementById('popupEmail').value.trim(),
+          _subject: 'New Popup Enquiry - MakeMeDebtFree',
+          _template: 'table',
+          _captcha: 'false'
+        };
+
+        const response = await fetch('https://formsubmit.co/ajax/advisor@makemedebtfree.co.uk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        popupSubmitBtn.classList.remove('loading');
+        popupSubmitBtn.disabled = false;
+
+        if (result.success) {
+          popupSubmitBtn.style.display = 'none';
+          popupSuccess.classList.add('show');
+          popupForm.reset();
+          setTimeout(closePopup, 3000);
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch (err) {
+        popupSubmitBtn.classList.remove('loading');
+        popupSubmitBtn.disabled = false;
         alert('Something went wrong. Please email us directly at advisor@makemedebtfree.co.uk');
       }
     });

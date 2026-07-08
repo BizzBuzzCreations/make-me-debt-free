@@ -372,17 +372,17 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const formData = new FormData(form);
         const payload = {
-          name:              formData.get('name'),
-          email:             formData.get('email'),
-          phone:             formData.get('phone'),
+          access_key:          '629e0aae-80b8-4000-8382-468d7ce970c2',
+          subject:             'New Debt Help Enquiry - MakeMeDebtFree',
+          from_name:           'MakeMeDebtFree Website',
+          name:                formData.get('name'),
+          email:               formData.get('email'),
+          phone:               formData.get('phone'),
           'Total Debt Amount': formData.get('debtAmount'),
-          message:           formData.get('message') || '(no message provided)',
-          _subject:          'New Debt Help Enquiry - MakeMeDebtFree',
-          _template:         'table',
-          _captcha:          'false'
+          message:             formData.get('message') || '(no message provided)'
         };
 
-        const response = await fetch('https://formsubmit.co/ajax/advisor@makemedebtfree.co.uk', {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -508,15 +508,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         const payload = {
-          name:     document.getElementById('popupName').value.trim(),
-          phone:    document.getElementById('popupPhone').value.trim(),
-          email:    document.getElementById('popupEmail').value.trim(),
-          _subject: 'New Popup Enquiry - MakeMeDebtFree',
-          _template: 'table',
-          _captcha: 'false'
+          access_key: '629e0aae-80b8-4000-8382-468d7ce970c2',
+          subject:    'New Popup Enquiry - MakeMeDebtFree',
+          from_name:  'MakeMeDebtFree Website',
+          name:       document.getElementById('popupName').value.trim(),
+          phone:      document.getElementById('popupPhone').value.trim(),
+          email:      document.getElementById('popupEmail').value.trim()
         };
 
-        const response = await fetch('https://formsubmit.co/ajax/advisor@makemedebtfree.co.uk', {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload)

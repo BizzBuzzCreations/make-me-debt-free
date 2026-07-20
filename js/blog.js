@@ -85,32 +85,7 @@
   });
 
   /* ─── 5. FAQ accordion ─────────────────────────────────────────────────── */
-  document.addEventListener('DOMContentLoaded', function () {
-    var questions = document.querySelectorAll('.faq-question');
-    questions.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var item     = btn.closest('.faq-item');
-        var answer   = item.querySelector('.faq-answer');
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-
-        document.querySelectorAll('.faq-item').forEach(function (other) {
-          if (other !== item) {
-            var otherBtn = other.querySelector('.faq-question');
-            var otherAns = other.querySelector('.faq-answer');
-            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
-            other.classList.remove('faq-open');
-            if (otherAns) otherAns.style.maxHeight = '0';
-          }
-        });
-
-        btn.setAttribute('aria-expanded', String(!expanded));
-        item.classList.toggle('faq-open', !expanded);
-        if (answer) {
-          answer.style.maxHeight = !expanded ? answer.scrollHeight + 'px' : '0';
-        }
-      });
-    });
-  });
+  /* Handled globally by script.js — no duplicate listener needed here.     */
 
   /* ─── 6. Thank-you modal helpers ───────────────────────────────────────── */
   function openModal() {

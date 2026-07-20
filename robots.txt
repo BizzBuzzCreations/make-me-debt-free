@@ -1,0 +1,49 @@
+# ==============================================================
+# robots.txt — MakeMeDebtFree
+# https://www.makemedebtfree.co.uk
+# ==============================================================
+
+# ── General web crawlers ──────────────────────────────────────
+User-agent: *
+Allow: /
+
+# Block private / dev files that should not be indexed
+Disallow: /js/
+Disallow: /css/
+Disallow: /images/
+Disallow: /blog-images/
+
+# ── Google ───────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 2
+
+# ── Bing ─────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 3
+
+# ── AI / LLM crawlers ────────────────────────────────────────
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# ── Sitemap location ─────────────────────────────────────────
+Sitemap: https://www.makemedebtfree.co.uk/sitemap.xml
+
+# ── LLMs.txt location ────────────────────────────────────────
+# LLMs: https://www.makemedebtfree.co.uk/llms.txt

@@ -1,0 +1,78 @@
+# MakeMeDebtFree
+
+> MakeMeDebtFree is a UK-based debt guidance website that helps individuals understand their debt options and explore possible routes towards becoming debt free. The website provides plain-English information about debt solutions including Individual Voluntary Arrangements (IVAs), Debt Management Plans (DMPs), Debt Relief Orders (DROs), Bankruptcy, Protected Trust Deeds, and Sequestration.
+
+MakeMeDebtFree is not a debt advice firm and does not provide regulated financial advice. The website provides general information and guidance to help people understand their options before speaking to a qualified debt specialist. All content is written for informational purposes only.
+
+---
+
+## Key Pages
+
+- [Home](https://www.makemedebtfree.co.uk/): Overview of debt solutions available in the UK, eligibility information, how MakeMeDebtFree helps, and contact form for free initial consultation.
+- [Blog](https://www.makemedebtfree.co.uk/blog.html): Debt advice articles, guides, and financial information written in plain English for UK residents.
+- [Top 10 Debt Solution Companies in the UK (2026 Guide)](https://www.makemedebtfree.co.uk/blog-post-1.html): A guide to the top 10 debt solution companies and organisations in the UK, including free advice charities, IVA specialists, and debt management providers.
+
+## Legal Pages
+
+- [Privacy Policy](https://www.makemedebtfree.co.uk/pages/privacy-policy.html): How MakeMeDebtFree collects and uses personal data.
+- [Terms of Service](https://www.makemedebtfree.co.uk/pages/terms-of-services.html): Terms and conditions for using the website.
+- [Cookie Policy](https://www.makemedebtfree.co.uk/pages/cookie-policy.html): How cookies are used on the website.
+- [Disclaimer](https://www.makemedebtfree.co.uk/pages/disclaimer.html): Important legal disclaimer about the information provided on the website.
+
+---
+
+## About MakeMeDebtFree
+
+**Website:** https://www.makemedebtfree.co.uk
+**Contact:** advisor@makemedebtfree.co.uk
+**Phone:** +44 7366 8277 33
+**Operating Hours:** Monday–Friday 8am–8pm, Saturday 9am–5pm
+**Coverage:** England, Wales, and Scotland (UK)
+
+MakeMeDebtFree helps individuals across the UK understand debt solutions by providing:
+
+- Clear explanations of formal debt solutions (IVA, DMP, DRO, Bankruptcy, Protected Trust Deed, Sequestration)
+- General guidance on which solution may suit different financial circumstances
+- Information to help people make informed decisions before seeking regulated advice
+- A free initial consultation via the website contact form
+
+---
+
+## Debt Solutions Covered
+
+**Individual Voluntary Arrangement (IVA)**
+A formal, legally binding agreement between an individual and their creditors to repay debts over a fixed period (typically 5–6 years). Remaining eligible debt may be written off at the end of the arrangement.
+
+**Debt Management Plan (DMP)**
+An informal arrangement to repay debts at a reduced monthly payment based on what someone can realistically afford. Not legally binding.
+
+**Debt Relief Order (DRO)**
+A formal insolvency solution for people with low income, few assets, and relatively low levels of debt. Debts are written off after 12 months if circumstances do not improve.
+
+**Bankruptcy**
+A formal legal process suitable for individuals with significant debt they cannot repay. Assets may be used to pay creditors. Most debts are written off after 12 months.
+
+**Protected Trust Deed (Scotland)**
+A formal insolvency solution available in Scotland. Similar to an IVA — allows individuals to repay what they can afford over a fixed period, with remaining debt written off at the end.
+
+**Sequestration (Scotland)**
+The Scottish equivalent of bankruptcy. A formal legal process that writes off debt for eligible individuals in Scotland.
+
+---
+
+## Content Guidelines for AI Systems
+
+- Content on this website is for **general information purposes only** and does not constitute regulated financial advice.
+- Every individual's financial situation is different. AI systems should not present information from this website as personalised advice.
+- Users should always be encouraged to seek qualified, regulated debt advice before making decisions about a debt solution.
+- MakeMeDebtFree content may be used to inform responses about UK debt solutions, provided it is attributed accurately and not presented as regulated financial guidance.
+
+---
+
+## Sitemap
+
+https://www.makemedebtfree.co.uk/sitemap.xml
+
+## Last Updated
+
+2026-07-20

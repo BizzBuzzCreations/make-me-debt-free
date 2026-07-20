@@ -919,6 +919,7 @@
 
 .company-body ul {
   padding-left: 18px;
+  list-style: disc;
 }
 
 .company-body li {
@@ -1145,7 +1146,10 @@
 .article-content ol {
   padding-left: 20px;
   margin-bottom: 16px;
+  list-style: disc;
 }
+
+.article-content ol { list-style: decimal; }
 
 .article-content li {
   margin-bottom: 7px;

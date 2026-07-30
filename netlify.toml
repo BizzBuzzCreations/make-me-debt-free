@@ -2,17 +2,10 @@
 # netlify.toml — MakeMeDebtFree
 # ============================================================
 
-# ── Clean URLs for blog posts (removes .html from URL) ──────
-# Step 1: Redirect old .html URLs → clean URL (301 permanent)
-[[redirects]]
-  from   = "/blog-page/:slug.html"
-  to     = "/blog-page/:slug"
-  status = 301
-  force  = true
-
-# Step 2: Serve the actual .html file at the clean URL (200 rewrite)
+# Clean URLs for blog posts — serves the .html file at the
+# clean URL without showing .html in the browser address bar.
+# Applies to all posts inside /blog-page/ automatically.
 [[redirects]]
   from   = "/blog-page/:slug"
   to     = "/blog-page/:slug.html"
   status = 200
-  force  = true

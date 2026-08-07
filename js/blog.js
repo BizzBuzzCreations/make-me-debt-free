@@ -200,20 +200,23 @@
       submitBtn.disabled    = true;
       submitBtn.textContent = 'Sending…';
 
+      var ids = (window.wit && typeof window.wit.getIds === 'function')
+        ? window.wit.getIds()
+        : { visitorId: '', sessionId: '' };
+
       var payload = {
-        access_key: '629e0aae-80b8-4000-8382-468d7ce970c2',
-        subject:    'New Blog Sidebar Enquiry - MakeMeDebtFree',
-        from_name:  'MakeMeDebtFree Blog',
         name:       nameInput ? nameInput.value.trim() : '',
         email:      emailInput ? emailInput.value.trim() : '',
         phone:      phoneInput ? phoneInput.value.trim() : '',
         message:    messageInput ? messageInput.value.trim() : '',
-        page:       document.title
+        visitorId:  ids.visitorId || '',
+        sessionId:  ids.sessionId || '',
+        formSource: 'blog-sidebar-form'
       };
 
-      fetch('https://api.web3forms.com/submit', {
+      fetch('/api/wit-lead', {
         method:  'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(payload)
       })
         .then(function (res) { return res.json(); })

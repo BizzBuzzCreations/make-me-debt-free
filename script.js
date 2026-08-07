@@ -371,23 +371,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         const formData = new FormData(form);
+        const { visitorId, sessionId } = (window.wit && typeof window.wit.getIds === 'function')
+          ? window.wit.getIds()
+          : { visitorId: '', sessionId: '' };
+
         const payload = {
-          access_key:          '629e0aae-80b8-4000-8382-468d7ce970c2',
-          subject:             'New Debt Help Enquiry - MakeMeDebtFree',
-          from_name:           'MakeMeDebtFree Website',
-          name:                formData.get('name'),
-          email:               formData.get('email'),
-          phone:               formData.get('phone'),
-          'Total Debt Amount': formData.get('debtAmount'),
-          message:             formData.get('message') || '(no message provided)'
+          name:               formData.get('name'),
+          email:              formData.get('email'),
+          phone:              formData.get('phone'),
+          debtAmount:         formData.get('debtAmount'),
+          message:            formData.get('message') || '',
+          visitorId,
+          sessionId,
+          formSource:         'contact-form'
         };
 
-        const response = await fetch('https://api.web3forms.com/submit', {
+        const response = await fetch('/api/wit-lead', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept':       'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
 
@@ -396,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
 
-        if (result.success) {
+        if (response.ok && result.success) {
           submitBtn.style.display = 'none';
           formSuccess.classList.add('show');
           form.reset();
@@ -405,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.style.display = '';
           }, 6000);
         } else {
-          throw new Error('Submission failed');
+          throw new Error(result.error || 'Submission failed');
         }
       } catch (err) {
         submitBtn.classList.remove('loading');
@@ -507,18 +508,22 @@ document.addEventListener('DOMContentLoaded', () => {
       popupSubmitBtn.disabled = true;
 
       try {
+        const { visitorId, sessionId } = (window.wit && typeof window.wit.getIds === 'function')
+          ? window.wit.getIds()
+          : { visitorId: '', sessionId: '' };
+
         const payload = {
-          access_key: '629e0aae-80b8-4000-8382-468d7ce970c2',
-          subject:    'New Popup Enquiry - MakeMeDebtFree',
-          from_name:  'MakeMeDebtFree Website',
           name:       document.getElementById('popupName').value.trim(),
           phone:      document.getElementById('popupPhone').value.trim(),
-          email:      document.getElementById('popupEmail').value.trim()
+          email:      document.getElementById('popupEmail').value.trim(),
+          visitorId,
+          sessionId,
+          formSource: 'popup-form'
         };
 
-        const response = await fetch('https://api.web3forms.com/submit', {
+        const response = await fetch('/api/wit-lead', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
 
@@ -527,13 +532,13 @@ document.addEventListener('DOMContentLoaded', () => {
         popupSubmitBtn.classList.remove('loading');
         popupSubmitBtn.disabled = false;
 
-        if (result.success) {
+        if (response.ok && result.success) {
           popupSubmitBtn.style.display = 'none';
           popupSuccess.classList.add('show');
           popupForm.reset();
           setTimeout(closePopup, 3000);
         } else {
-          throw new Error('Submission failed');
+          throw new Error(result.error || 'Submission failed');
         }
       } catch (err) {
         popupSubmitBtn.classList.remove('loading');

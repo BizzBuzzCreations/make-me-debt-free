@@ -96,13 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================
      SCROLL REVEAL ANIMATION
      ========================================== */
-  const revealEls = document.querySelectorAll('.reveal');
+  const revealEls = document.querySelectorAll('.reveal, .fade-in');
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
         // Stagger siblings in the same parent grid/flex
-        const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal:not(.visible)'));
+        const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal:not(.visible), .fade-in:not(.visible)'));
         const idx      = siblings.indexOf(entry.target);
         setTimeout(() => {
           entry.target.classList.add('visible');
@@ -623,56 +623,82 @@ document.addEventListener('DOMContentLoaded', () => {
     el.textContent = prefix + '0' + suffix;
   });
 
-  /* ==========================================
-     DEBT REPAYMENT CALCULATOR
-     ========================================== */
-  const calcBtn        = document.getElementById('calc-btn');
-  const calcDebtInput  = document.getElementById('calc-debt');
-  const calcPeriodSel  = document.getElementById('calc-period');
-  const calcDebtError  = document.getElementById('calc-debt-error');
-  const calcResult     = document.getElementById('calc-result');
-  const calcResultSub  = document.getElementById('calc-result-sub');
-  const calcOutDebt    = document.getElementById('calc-out-debt');
-  const calcOutPeriod  = document.getElementById('calc-out-period');
-
-  function formatGBP(value) {
-    return '£' + Math.round(value).toLocaleString('en-GB');
+  /* ---- Debt Calculator ---- */
+  const calcForm = document.getElementById('calcForm');
+  if (calcForm) {
+    calcForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      calculateDebt();
+    });
+    // Also recalculate on Enter key in inputs
+    calcForm.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') calculateDebt();
+      });
+    });
   }
 
-  function runCalculator() {
-    const debtValue = parseFloat(calcDebtInput.value);
-    const years     = parseInt(calcPeriodSel.value, 10);
+  function calculateDebt() {
+    const totalDebt = parseFloat(document.getElementById('totalDebt')?.value);
+    const interestRate = parseFloat(document.getElementById('interestRate')?.value);
+    const monthlyPayment = parseFloat(document.getElementById('monthlyPayment')?.value);
+    const resultsEl = document.getElementById('calcResults');
+    const placeholderEl = document.getElementById('calcPlaceholder');
 
-    if (!debtValue || debtValue <= 0) {
-      calcDebtInput.classList.add('error');
-      calcDebtError.textContent = 'Please enter a valid debt amount';
+    if (!totalDebt || !interestRate || !monthlyPayment || totalDebt <= 0 || monthlyPayment <= 0) {
+      showCalcError('Please enter valid values for all fields.');
       return;
     }
 
-    calcDebtInput.classList.remove('error');
-    calcDebtError.textContent = '';
+    const monthlyRate = interestRate / 100 / 12;
+    let balance = totalDebt;
+    let months = 0;
+    let totalPaid = 0;
 
-    const months  = years * 12;
-    const monthly = debtValue / months;
+    if (monthlyRate === 0) {
+      months = Math.ceil(totalDebt / monthlyPayment);
+      totalPaid = monthlyPayment * months;
+    } else {
+      const minPayment = balance * monthlyRate;
+      if (monthlyPayment <= minPayment) {
+        showCalcError('Monthly payment must exceed the minimum interest charge of £' + minPayment.toFixed(2) + '. Please increase your payment.');
+        return;
+      }
+      while (balance > 0 && months < 600) {
+        const interest = balance * monthlyRate;
+        const principal = Math.min(monthlyPayment - interest, balance);
+        balance -= principal;
+        totalPaid += monthlyPayment;
+        months++;
+        if (balance <= 0.01) break;
+      }
+    }
 
-    calcResult.textContent    = formatGBP(monthly) + ' /mo';
-    calcResultSub.textContent = 'Based on the details you entered';
-    calcOutDebt.textContent   = formatGBP(debtValue);
-    calcOutPeriod.textContent = years + (years === 1 ? ' Year' : ' Years') + ' (' + months + ' months)';
+    const totalInterest = Math.max(0, totalPaid - totalDebt);
+    const years = Math.floor(months / 12);
+    const remMonths = months % 12;
+    let timeStr = '';
+    if (years > 0) timeStr += years + ' year' + (years > 1 ? 's' : '');
+    if (years > 0 && remMonths > 0) timeStr += ', ';
+    if (remMonths > 0) timeStr += remMonths + ' month' + (remMonths > 1 ? 's' : '');
+
+    if (placeholderEl) placeholderEl.style.display = 'none';
+    if (resultsEl) {
+      resultsEl.style.display = 'flex';
+      document.getElementById('resultMonths').textContent = timeStr;
+      document.getElementById('resultTotal').textContent = '£' + totalPaid.toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2});
+      document.getElementById('resultInterest').textContent = '£' + totalInterest.toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2});
+    }
   }
 
-  if (calcBtn) {
-    calcBtn.addEventListener('click', runCalculator);
-    calcDebtInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        runCalculator();
-      }
-    });
-    calcDebtInput.addEventListener('input', () => {
-      calcDebtInput.classList.remove('error');
-      calcDebtError.textContent = '';
-    });
+  function showCalcError(msg) {
+    const resultsEl = document.getElementById('calcResults');
+    const placeholderEl = document.getElementById('calcPlaceholder');
+    if (placeholderEl) { placeholderEl.style.display = 'flex'; }
+    if (resultsEl) resultsEl.style.display = 'none';
+    const errEl = document.getElementById('calcError');
+    if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+    setTimeout(() => { if (errEl) errEl.style.display = 'none'; }, 4000);
   }
 
 });

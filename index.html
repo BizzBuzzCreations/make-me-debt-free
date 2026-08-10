@@ -365,61 +365,60 @@
   </section>
 
   <!-- ======== DEBT CALCULATOR SECTION ======== -->
-  <section class="calculator-section" id="calculator">
+  <section class="calculator-section section-pad" id="calculator">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Free Tool</span>
-        <h2 class="section-title">See What Your <span class="text-gradient">Monthly Repayment</span> Could Look Like</h2>
-        <p class="section-subtitle">Get an instant, no-obligation estimate of what a structured repayment plan could mean for you. It only takes a few seconds.</p>
+      <div class="text-center fade-in">
+        <span class="section-label">Free Check</span>
+        <h2 class="section-title">Free Debt Repayment Checker</h2>
+        <p class="section-subtitle">Enter your details below to see an estimate of how long it will take to clear your debt and how much you'll pay in total — then speak to an adviser about solutions that could do better.</p>
       </div>
-
-      <div class="calculator-card reveal">
-        <div class="calculator-inputs">
-          <div class="form-group">
-            <label for="calc-debt">Total Debt Amount (£)</label>
-            <input type="number" id="calc-debt" placeholder="e.g. 15000" min="0" step="100" inputmode="numeric">
-            <span class="form-error" id="calc-debt-error"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="calc-period">Preferred Repayment Period</label>
-            <select id="calc-period">
-              <option value="1">1 Year</option>
-              <option value="2">2 Years</option>
-              <option value="3" selected>3 Years</option>
-              <option value="4">4 Years</option>
-              <option value="5">5 Years</option>
-              <option value="6">6 Years</option>
-            </select>
-          </div>
-
-          <button type="button" id="calc-btn" class="btn btn-secondary btn-block">
-            Calculate My Estimate
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-
-          <p class="calculator-disclaimer">This calculator is for illustration purposes only and does not constitute financial advice. Actual repayment amounts depend on your income, expenditure, and creditor agreement.</p>
+      <div class="calc-wrapper fade-in">
+        <div class="calc-header">
+          <h3>Estimate Your Repayment Timeline</h3>
+          <p>This is an estimate only. Contact us for a personalised, detailed plan.</p>
         </div>
-
-        <div class="calculator-result">
-          <span class="calculator-result-label">Estimated Monthly Payment</span>
-          <div class="calculator-result-value" id="calc-result">£0</div>
-          <p class="calculator-result-sub" id="calc-result-sub">Enter your details to see an estimate</p>
-
-          <div class="calculator-result-divider"></div>
-
-          <div class="calculator-result-row">
-            <span>Total Debt</span>
-            <strong id="calc-out-debt">£0</strong>
+        <div class="calc-body">
+          <div class="calc-inputs">
+            <form id="calcForm">
+              <div class="calc-field">
+                <label for="totalDebt">Total Debt Amount (£)</label>
+                <input type="number" id="totalDebt" placeholder="e.g. 8500" min="1" step="1" required>
+              </div>
+              <div class="calc-field">
+                <label for="interestRate">Annual Interest Rate (%)</label>
+                <input type="number" id="interestRate" placeholder="e.g. 18.9" min="0" step="0.1" required>
+              </div>
+              <div class="calc-field">
+                <label for="monthlyPayment">Monthly Payment (£)</label>
+                <input type="number" id="monthlyPayment" placeholder="e.g. 250" min="1" step="1" required>
+              </div>
+              <p id="calcError" style="color:var(--red);font-size:0.82rem;display:none;margin-top:-8px;"></p>
+              <br>
+              <button type="submit" class="btn btn-primary btn-lg calc-btn">Calculate Now</button>
+            </form>
           </div>
-          <div class="calculator-result-row">
-            <span>Repayment Period</span>
-            <strong id="calc-out-period">—</strong>
+          <div class="calc-results" style="display:none;flex-direction:column;gap:18px;" id="calcResults">
+            <div class="calc-result-card">
+              <p>Estimated Time to Debt-Free</p>
+              <strong id="resultMonths">—</strong>
+              <span>Based on your current payment amount</span>
+            </div>
+            <div class="calc-result-card green-border">
+              <p>Total Amount You'll Pay</p>
+              <strong id="resultTotal">—</strong>
+              <span>Including principal and interest</span>
+            </div>
+            <div class="calc-result-card amber-border">
+              <p>Total Interest Paid</p>
+              <strong id="resultInterest">—</strong>
+              <span>A formal debt solution could reduce or write off this</span>
+            </div>
+            <a href="#contact" class="btn btn-green">Get a Better Plan — Free</a>
           </div>
-
-          <a href="#contact" class="btn btn-primary btn-block mt-2">Talk to a Debt Advisor</a>
+          <div class="calc-placeholder" id="calcPlaceholder">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <p>Enter your details and click<br><strong>Calculate Now</strong> to see your results</p>
+          </div>
         </div>
       </div>
     </div>

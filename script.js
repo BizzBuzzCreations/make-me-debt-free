@@ -618,4 +618,56 @@ document.addEventListener('DOMContentLoaded', () => {
     el.textContent = prefix + '0' + suffix;
   });
 
+  /* ==========================================
+     DEBT REPAYMENT CALCULATOR
+     ========================================== */
+  const calcBtn        = document.getElementById('calc-btn');
+  const calcDebtInput  = document.getElementById('calc-debt');
+  const calcPeriodSel  = document.getElementById('calc-period');
+  const calcDebtError  = document.getElementById('calc-debt-error');
+  const calcResult     = document.getElementById('calc-result');
+  const calcResultSub  = document.getElementById('calc-result-sub');
+  const calcOutDebt    = document.getElementById('calc-out-debt');
+  const calcOutPeriod  = document.getElementById('calc-out-period');
+
+  function formatGBP(value) {
+    return '£' + Math.round(value).toLocaleString('en-GB');
+  }
+
+  function runCalculator() {
+    const debtValue = parseFloat(calcDebtInput.value);
+    const years     = parseInt(calcPeriodSel.value, 10);
+
+    if (!debtValue || debtValue <= 0) {
+      calcDebtInput.classList.add('error');
+      calcDebtError.textContent = 'Please enter a valid debt amount';
+      return;
+    }
+
+    calcDebtInput.classList.remove('error');
+    calcDebtError.textContent = '';
+
+    const months  = years * 12;
+    const monthly = debtValue / months;
+
+    calcResult.textContent    = formatGBP(monthly) + ' /mo';
+    calcResultSub.textContent = 'Based on the details you entered';
+    calcOutDebt.textContent   = formatGBP(debtValue);
+    calcOutPeriod.textContent = years + (years === 1 ? ' Year' : ' Years') + ' (' + months + ' months)';
+  }
+
+  if (calcBtn) {
+    calcBtn.addEventListener('click', runCalculator);
+    calcDebtInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        runCalculator();
+      }
+    });
+    calcDebtInput.addEventListener('input', () => {
+      calcDebtInput.classList.remove('error');
+      calcDebtError.textContent = '';
+    });
+  }
+
 });

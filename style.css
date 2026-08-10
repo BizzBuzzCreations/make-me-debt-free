@@ -1266,6 +1266,94 @@ section { padding: 96px 0; }
 }
 
 /* ====================================
+   DEBT CALCULATOR SECTION
+   ==================================== */
+.calculator-section {
+  background: var(--white);
+}
+
+.calculator-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.calculator-inputs {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.calculator-disclaimer {
+  font-size: 0.78rem;
+  color: var(--text-body);
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+.calculator-result {
+  background: linear-gradient(150deg, var(--navy), var(--blue) 65%, var(--purple));
+  color: var(--white);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calculator-result-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.calculator-result-value {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.calculator-result-sub {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin-bottom: 8px;
+}
+
+.calculator-result-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  margin: 16px 0;
+}
+
+.calculator-result-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.92rem;
+  padding: 8px 0;
+}
+
+.calculator-result-row span { opacity: 0.75; }
+
+.calculator-result .btn-primary {
+  background: var(--white);
+  color: var(--navy);
+  border-color: var(--white);
+  margin-top: 20px;
+}
+
+.calculator-result .btn-primary:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ====================================
    DEBT HELP SECTION
    ==================================== */
 .debt-help-section {
@@ -2408,6 +2496,8 @@ section { padding: 96px 0; }
   .contact-inner { grid-template-columns: 1fr; gap: 48px; }
   .footer-grid { grid-template-columns: repeat(2, 1fr); }
   .testimonial-card { flex: 0 0 calc(50% - 12px); }
+  .calculator-card { grid-template-columns: 1fr; }
+  .calculator-inputs, .calculator-result { padding: 36px; }
 }
 
 /* ====================================
@@ -2458,6 +2548,8 @@ section { padding: 96px 0; }
   .footer-grid .footer-col:last-child { grid-column: 1 / -1; }
   .form-row { grid-template-columns: 1fr; }
   .contact-form-wrap { padding: 28px 20px; }
+  .calculator-inputs, .calculator-result { padding: 28px 20px; }
+  .calculator-result-value { font-size: 2.4rem; }
 
   /* Testimonials — one card fills the full container */
   .testimonial-card {

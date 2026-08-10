@@ -1185,6 +1185,55 @@
 .article-callout p { margin: 0; font-size: 0.92rem; }
 .article-callout strong { color: #6843b1; }
 
+/* Credit recovery timeline (progress-bar chart) */
+.credit-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.credit-timeline-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 230px;
+  gap: 16px;
+  align-items: center;
+}
+
+.credit-timeline-year {
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: #1a1040;
+}
+
+.credit-timeline-bar {
+  position: relative;
+  height: 32px;
+  background: #f3f0ff;
+  border-radius: 8px;
+  border: 1px solid #ede9ff;
+  overflow: hidden;
+}
+
+.credit-timeline-fill {
+  height: 100%;
+  border-radius: 7px 0 0 7px;
+  background: linear-gradient(90deg, #6843b1, #0c376b);
+}
+
+.credit-timeline-desc {
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+@media (max-width: 640px) {
+  .credit-timeline-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .credit-timeline-bar { height: 26px; }
+}
+
 /* FAQ inside article */
 .article-faq { margin-top: 40px; padding-top: 36px; border-top: 2px solid #f0eeff; }
 

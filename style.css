@@ -2420,6 +2420,22 @@ section { padding: 96px 0; }
   font-size: 0.75rem;
 }
 
+.footer-disclaimer {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 26px 0 32px;
+  text-align: center;
+}
+
+.footer-disclaimer p {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.5;
+  max-width: 920px;
+  margin: 0 auto 6px;
+}
+
+.footer-disclaimer p:last-child { margin-bottom: 0; }
+
 @media (max-width: 640px) {
   .footer-bottom {
     flex-direction: column;
